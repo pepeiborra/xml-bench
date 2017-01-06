@@ -1,0 +1,79 @@
+name:                xml-benchmark 
+version:             0.1.0.0
+
+synopsis:            A container project for XML benchmarks
+
+description:         Benchmarks for the most commonly used XML parsing libraries
+
+license:             BSD3
+
+license-file:        LICENSE
+
+author:              Pepe Iborra
+
+maintainer:          pepeiborra@gmail.com
+
+-- A copyright notice.
+-- copyright:           
+
+category:            XML
+
+build-type:          Simple
+
+extra-source-files:  ChangeLog.md, xml/benchmark.xml.bz2, xml/mail.xml.bz2, xml/large.xml.bz2
+extra-tmp-files:     xml/benchmark.xml, xml/mail.xml, xml/large.xml,
+                     xml/benchmark.xml.reprint, xml/mail.xml.reprint, xml/large.xml.reprint
+
+-- Constraint on the version of Cabal needed to build this package.
+cabal-version:       >=1.24
+
+tested-with:         GHC == 7.10.3, GHC == 8.0.1
+
+Benchmark bench
+        type: exitcode-stdio-1.0
+        main-is: Bench.hs
+        other-modules: Paths_xml_benchmark
+        autogen-modules: Paths_xml_benchmark
+        hs-source-dirs:      src
+        build-depends:  base, unordered-containers, criterion, filepath, process, directory
+        default-language:    Haskell2010
+        ghc-options:         -rtsopts  
+        default-language:    Haskell2010
+
+Executable BenchHxml
+        main-is: benchHxml.hs
+        hs-source-dirs:      src
+        build-depends: base, hxml,
+                       optparse-generic, directory, filepath
+        ghc-options:         -rtsopts
+        default-language:    Haskell2010
+
+Executable BenchTinyXml
+        main-is: TinyXml.hs
+        hs-source-dirs:      src
+        build-depends:  base, bytestring, tinyXml,
+                        optparse-generic, directory, filepath
+        default-language:    Haskell2010
+        ghc-options:        -rtsopts
+
+-- This doesn't belong here, it's only a convenience for benchmark purposes
+Executable BenchHexml
+        main-is: Hexml.hs
+        hs-source-dirs:      src
+        build-depends:  base, bytestring, hexml,
+                        optparse-generic, directory, filepath
+        ghc-options: -rtsopts
+        default-language:    Haskell2010
+
+-- This doesn't belong here, it's only a convenience for benchmark purposes
+Executable BenchXmlConduit
+        main-is: XmlConduit.hs
+        hs-source-dirs:      src
+        build-depends:  base,
+                        bytestring,
+                        data-default,
+                        xml-conduit,
+                        blaze-markup,
+                        optparse-generic, directory, filepath
+        ghc-options: -rtsopts
+        default-language:    Haskell2010
