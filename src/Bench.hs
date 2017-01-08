@@ -8,7 +8,10 @@ import Paths_xml_benchmark
 import Text.Printf
 import Criterion.Main
 
-libraries = [ "Hexml", "TinyXml", "XmlConduit", "hxml" ]
+libraries = [ "Hexml", "Pugi", "TinyXml", "Hexpat", "Haxml", "XmlConduit", "hxml" ]
+
+exclude (_, "Haxml", "large.xml") = True
+exclude (_mode, _lib, _file) = False
 
 main = do
   binDir  <- getBinDir
@@ -27,11 +30,13 @@ main = do
   let makeBenchmarkGroup name fp args =
         bgroup (name <> " - " <> fp)
         [ bench lib $ whnfIO $ invokeWith (("xml" </> fp) : args) lib
-        | lib <- libraries]
+        | lib <- libraries
+        , not $ exclude(name, lib, fp)]
 
   let benchmarks =
         [ makeBenchmarkGroup name fp args
           | (name, args) <- [ ("validate", []), ("render", ["--reprint"]) ]
-          , fp <- xmlFiles ]
+          , fp <- xmlFiles
+          ]
 
   defaultMain benchmarks

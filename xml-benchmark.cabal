@@ -1,4 +1,4 @@
-name:                xml-benchmark 
+name:                xml-benchmark
 version:             0.1.0.0
 
 synopsis:            A container project for XML benchmarks
@@ -20,14 +20,18 @@ category:            XML
 
 build-type:          Simple
 
-extra-source-files:  ChangeLog.md, xml/benchmark.xml.bz2, xml/mail.xml.bz2, xml/large.xml.bz2
-extra-tmp-files:     xml/benchmark.xml, xml/mail.xml, xml/large.xml,
-                     xml/benchmark.xml.reprint, xml/mail.xml.reprint, xml/large.xml.reprint
+extra-source-files:  README.md, ChangeLog.md, xml/medium.xml.bz2, xml/small.xml.bz2, xml/large.xml.bz2
+extra-tmp-files:     xml/medium.xml, xml/small.xml, xml/large.xml,
+                     xml/medium.xml.reprint, xml/small.xml.reprint, xml/large.xml.reprint
 
 -- Constraint on the version of Cabal needed to build this package.
 cabal-version:       >=1.24
 
 tested-with:         GHC == 7.10.3, GHC == 8.0.1
+
+source-repository head
+  type: git
+  location: https://github.com/pepeiborra/xml-benchmark
 
 Benchmark bench
         type: exitcode-stdio-1.0
@@ -56,7 +60,6 @@ Executable BenchTinyXml
         default-language:    Haskell2010
         ghc-options:        -rtsopts
 
--- This doesn't belong here, it's only a convenience for benchmark purposes
 Executable BenchHexml
         main-is: Hexml.hs
         hs-source-dirs:      src
@@ -65,7 +68,6 @@ Executable BenchHexml
         ghc-options: -rtsopts
         default-language:    Haskell2010
 
--- This doesn't belong here, it's only a convenience for benchmark purposes
 Executable BenchXmlConduit
         main-is: XmlConduit.hs
         hs-source-dirs:      src
@@ -76,4 +78,28 @@ Executable BenchXmlConduit
                         blaze-markup,
                         optparse-generic, directory, filepath
         ghc-options: -rtsopts
+        default-language:    Haskell2010
+
+Executable BenchPugi
+        main-is: Pugi.hs
+        hs-source-dirs:      src
+        build-depends: base, pugixml >= 0.3.3, bytestring,
+                       optparse-generic, directory, filepath
+        ghc-options:         -rtsopts
+        default-language:    Haskell2010
+
+Executable BenchHexpat
+        main-is: Hexpat.hs
+        hs-source-dirs:      src
+        build-depends: base, hexpat >= 0.20, bytestring,
+                       optparse-generic, directory, filepath
+        ghc-options:         -rtsopts
+        default-language:    Haskell2010
+
+Executable BenchHaxml
+        main-is: Haxml.hs
+        hs-source-dirs:      src
+        build-depends: base, HaXml >= 1.25, bytestring, 
+                       optparse-generic, directory, filepath
+        ghc-options:         -rtsopts
         default-language:    Haskell2010
