@@ -22,10 +22,10 @@ Currently the following libraries are included in the benchmark:
 ## PROCEDURE
 
 Benchmarking lazy libraries is notoriously difficult. This project tries to sidestep the issue by having a process-based approach; for every library we create an executable that supports the following operations:
-1. Validation: parse a file and output `OK` if valid, otherwise exit with an error code.
+1. Parse: parse a file and output `OK` if valid XML, otherwise exit with an error code.
 2. Roundtrip: parse a file into a DOM tree, and then output a new XML document freshly constructed from the tree.
 
-The benchmark suite uses Criterion to run each executable against every file in the xml folder, in Validation and Roundtrip mode.
+The benchmark suite uses Criterion to run each executable against every file in the xml folder, in Parse and Roundtrip mode.
 
 ## RESULTS 
 
@@ -43,4 +43,4 @@ Cabal packages:
  
 <img href="results."> 
 
-PugiXml and Hexml are the fastest in the validation test, followed closely by TinyXml. In the rendering test pugiXml, which delegates the rendering to a C library as well as the parsing, is the fastest again, beating TinyXml and Hexml by an order of magnitude.
+PugiXml and Hexml are the fastest in the parse test, followed closely by TinyXml. In the rendering test pugiXml, which delegates the rendering to a C library as well as the parsing, is the fastest again, beating TinyXml and Hexml by an order of magnitude.
